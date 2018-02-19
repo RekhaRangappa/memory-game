@@ -107,19 +107,14 @@ h1 {
     float: right;
     cursor: pointer;
 }
+/* Styles added */
 @keyframes move {
     0%   {top: 0px; left: 0px;}
     5%  {top: 0px; left: 10px;}
 }
 .animate {
     position: relative;
-	-webkit-animation: move 1s infinite; /* Safari 4.0 - 8.0 */
     animation: move 0.4s infinite;
-}
-.deck .card.nomatch {
-    cursor: default;
-    background:red;
-    font-size: 33px;
 }
 #deck-container {
   position: relative;
