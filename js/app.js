@@ -1,14 +1,31 @@
 /*
  * Create a list that holds all of your cards
  */
-
-
+let cards = ["fa-diamond", "fa-paper-plane-o",  "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor", "fa-leaf", 
+"fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o",
+ "fa-cube"];
+let openCards=[], matchFound=0, moves = 0, starCount = 3;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+function initialize() {
+    matchFound = 0;
+    moves = 0;
+    starCount= 3;
+    addStars();
+    $('#moves').html(`${moves} moves`);
+}
+function startGame() {
+    shuffledCards = shuffle(cards);
+    for(let i=0;i<shuffledCards.length;i++) {
+        $("#deck").append('<li class="card"><i class="fa '+ shuffledCards[i] +'"></i></li>');
+    }
+    $( "ul.deck li.card" ).on( "click", toggleCard);
+    initialize();
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -36,3 +53,90 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+toggleCard = function() {
+        if(openCards.length === 0) {
+            $(this).toggleClass("show open");
+            openCards.push($(this));
+        } else if(openCards.length === 1) {
+            $(this).toggleClass("show open");
+            openCards.push($(this));
+            animateCards();           
+            setTimeout(checkCardMatches, 1600);
+            trackMoves();
+        }
+    };
+function checkCardMatches() {
+    if(openCards[0][0].firstElementChild.className === openCards[1][0].firstElementChild.className) {
+        openCards[0].off('click');
+        openCards[1].off('click');
+        openCards[0].addClass('match');
+        openCards[1].addClass('match');
+        animateCards();
+        removeCards();
+        checkGameFinish();
+    } else {
+        openCards[0].toggleClass("show open");
+        openCards[1].toggleClass("show open");
+        animateCards();
+        removeCards();
+    }      
+}
+function animateCards() {
+    openCards[0].toggleClass('animate');
+    openCards[1].toggleClass('animate');
+} 
+
+function removeCards() {
+    openCards = [];
+}
+function checkGameFinish() {
+    matchFound = matchFound + 1;
+    if (matchFound == 8) {
+         $("#overlay").addClass('overlay');
+        $('#overlay').html(`<p class="success"> Congratulations! You Won! </p>
+                    <p>
+                        <span class="score">With ${moves} Moves and ${starCount} Stars</span>
+                    </p>
+                    <p>Wooooooo!</p>
+                    <p><button onclick="restartGame()">Play again!</button></p>
+            `);
+    }
+}
+function restartGame() {
+    $("ul").empty();
+    $("#stars").empty();
+    $("#overlay").removeClass('overlay');
+    matchFound = 0;
+    startGame();
+}
+//Track Moves
+function trackMoves() {
+    moves += 1;
+    $('#moves').html(`${moves} moves`);
+    updateStars();
+}
+//updateStars
+function updateStars() {
+    if(moves === 9 ) {
+        addEmptyStars();
+    } else if(moves === 18) {
+        addEmptyStars();
+    }
+}
+//add stars
+function addStars() {
+    for(let i=0;i<3;i++) {
+        $('#stars').append('<i class="fa fa-star"></i>');
+    }
+}
+//remove stars
+function addEmptyStars() {
+    starCount--; 
+    $('#stars').children()[0].remove();
+    $('#stars').append('<i class="fa fa-star-o"></i>');
+}
+// Start the Game
+startGame();
+checkGameFinish();
+
+$('.restart').on('click', restartGame);

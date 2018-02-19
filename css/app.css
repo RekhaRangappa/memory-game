@@ -107,3 +107,44 @@ h1 {
     float: right;
     cursor: pointer;
 }
+@keyframes move {
+    0%   {top: 0px; left: 0px;}
+    5%  {top: 0px; left: 10px;}
+}
+.animate {
+    position: relative;
+	-webkit-animation: move 1s infinite; /* Safari 4.0 - 8.0 */
+    animation: move 0.4s infinite;
+}
+.deck .card.nomatch {
+    cursor: default;
+    background:red;
+    font-size: 33px;
+}
+#deck-container {
+  position: relative;
+}
+#deck-container .overlay {
+  background: white;
+  height: 100%;
+  width: 100%;
+  opacity: 0.9;
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 150px;
+  transition: opacity .5s;
+}
+#deck-container .overlay p {
+  color: black;
+  font-family: 'arial';
+  text-align: center;
+}
+.success {
+    font-weight:bold;
+    font-size: 25px;
+}
+button {
+    background-color: lightgreen;
+    padding: 5px 10px; 
+}
