@@ -1,20 +1,18 @@
 # Memory Game Project
 
-## Table of Contents
+## Game introduction
+Memory game is a browser based game. 
+There would be 16 boxes having 8 cards which would be hidden, there will be two cards identical to each other.
+Player should match all identical cards
+Game will specify how many moves to match the cards, time taken to complete the matching
+Player can restart the game whenever required.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## How to play game
+Player will flip one card and identifies the symbol, and flip other card to find same identical symbol.
+If both the cards matches, the player has identifieddthe matching cards, and these cards would not be hidden again.
+If both the cards do not match, both the cards will be hidden
+Game will end if all the cards are matched with there identical cards.
 
 ## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Clone the game from 'https://github.com/RekhaRangappa/memory-game.git'
+open index.html in browser 
