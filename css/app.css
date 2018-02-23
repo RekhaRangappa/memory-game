@@ -107,6 +107,10 @@ h1 {
     float: right;
     cursor: pointer;
 }
+.score-panel .timer {
+    display: inline-block;
+    padding-left: 60px;
+}
 /* Styles added */
 @keyframes move {
     0%   {top: 0px; left: 0px;}
