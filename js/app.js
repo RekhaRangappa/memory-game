@@ -7,6 +7,8 @@ let matchFound=0;
 let moves = 0;
 let starCount = 3;
 let timer = "";
+let clickCount = 0;
+let time_value = '0:0:00';
 
 /*
  * Display the cards on the page
@@ -30,8 +32,9 @@ function initialize() {
     moves = 0;
     starCount= 3;
     addStars();
+    time_value = '0:0:00';
     $('#moves').html(`${moves} moves`);
-    gameTimer();
+    $(".timer").text(time_value);
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -49,6 +52,11 @@ function shuffle(array) {
 
 // Display or hide the card 
 toggleCard = function() {
+        //start timer for first click
+        clickCount++;
+        if(clickCount == 1) {
+            gameTimer();
+        }
         if(openCards.length === 0) {
             $(this).toggleClass("show open");
             openCards.push($(this));
@@ -94,7 +102,8 @@ function checkGameFinish() {
     if (matchFound == 8) {
         clearInterval(timer);
         $("#overlay").addClass('overlay');
-        $('#overlay').html(`<p class="success"> Congratulations! You Won! </p>
+        $('#overlay').html(`
+                    <p class="success"> Congratulations! You Won! </p>
                     <p>
                         <span class="score">With ${moves} Moves and ${starCount} Stars in</span>
                     </p>
@@ -165,7 +174,10 @@ function restartGame() {
     $("ul").empty();
     $("#stars").empty();
     $("#overlay").removeClass('overlay');
+    $('#overlay').empty();
     matchFound = 0;
+    clickCount = 0;
+    clearInterval(timer);
     startGame();
 }
 
